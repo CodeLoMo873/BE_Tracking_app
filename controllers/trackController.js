@@ -11,8 +11,12 @@ exports.createTrack = async (req, res) => {
 };
 
 exports.getTracks = async (req, res) => {
-  const tracks = await Track.find().populate('artist album');
-  res.json(tracks);
+  try {
+    const tracks = await Track.find().populate(['artists', 'album']);
+    res.json(tracks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 exports.getSuggestedTracks = async (req, res) => {
