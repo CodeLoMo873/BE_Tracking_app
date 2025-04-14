@@ -1,15 +1,31 @@
-// models/Track.js
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const trackSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  artist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artist', required: true },
-  album: { type: mongoose.Schema.Types.ObjectId, ref: 'Album' },
-  url: { type: String, required: true },
-  duration: Number,
-  genre: String,
-  weatherTags: [String],
-  mood: String,
+const trackSchema = new Schema({
+  artists: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Artist',
+    }
+  ],
+  album: {
+    type: Schema.Types.ObjectId,
+    ref: 'Album',
+  },
+  disc_number: Number,
+  duration_ms: Number,
+  explicit: Boolean,
+  external_urls: {
+    spotify: String,
+  },
+  href: String,
+  id: String,
+  name: String,
+  preview_url: String,
+  track_number: Number,
+  type: String,
+  uri: String,
+  is_local: Boolean
 });
 
 module.exports = mongoose.model('Track', trackSchema);
