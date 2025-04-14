@@ -1,0 +1,52 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+logfile*
+debug.log
+
+# dotenv environment files
+.env
+.env.local
+.env.*.local
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sw?
+*.sublime-workspace
+*.sublime-project
+
+# Build output
+dist/
+build/
+tmp/
+temp/
+
+# Dependency directories
+bower_components/
+
+# Optional: coverage/testing
+coverage/
+nyc_output/
+
+# Optional: PM2 logs
+.pids
+*.pid
+*.seed
+
+# Optional: Mac and Linux system files
+*.swp
+*.swo
+
+# Optional: VS Code settings
+.history/
