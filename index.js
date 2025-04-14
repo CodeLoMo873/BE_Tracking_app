@@ -11,6 +11,10 @@ const songRoutes = require('./routes/songRoutes');
 app.use(express.json());
 
 app.use('/api/songs', songRoutes);
+app.use('/api/artists', require('./routes/artistRoutes'));
+app.use('/api/albums', require('./routes/albumRoutes'));
+app.use('/api/tracks', require('./routes/trackRoutes'));
+app.use('/api/playlists', require('./routes/playlistRoutes'));
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
