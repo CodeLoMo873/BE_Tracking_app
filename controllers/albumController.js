@@ -3,7 +3,11 @@ const Album = require('../models/Album');
 // Lấy tất cả album, có artist details
 exports.getAllAlbums = async (req, res) => {
   try {
-    const albums = await Album.find().populate('artists');
+    const { artistId } = req.query;
+
+    const filter = artistId ? { artists: artistId } : {};
+
+    const albums = await Album.find(filter).populate('artists');
     res.status(200).json(albums);
   } catch (err) {
     res.status(500).json({ message: err.message });
