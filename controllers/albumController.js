@@ -1,6 +1,5 @@
 const Album = require('../models/Album');
 
-// Lấy tất cả album, có artist details
 exports.getAllAlbums = async (req, res) => {
   try {
     const { artistId } = req.query;
@@ -14,7 +13,6 @@ exports.getAllAlbums = async (req, res) => {
   }
 };
 
-// Lấy 1 album theo id
 exports.getAlbumById = async (req, res) => {
   try {
     const album = await Album.findById(req.params.id).populate('artists');
@@ -25,7 +23,6 @@ exports.getAlbumById = async (req, res) => {
   }
 };
 
-// Tạo mới album
 exports.createAlbum = async (req, res) => {
   try {
     const album = new Album(req.body);
@@ -36,7 +33,6 @@ exports.createAlbum = async (req, res) => {
   }
 };
 
-// Cập nhật album
 exports.updateAlbum = async (req, res) => {
   try {
     const updatedAlbum = await Album.findByIdAndUpdate(
@@ -50,12 +46,25 @@ exports.updateAlbum = async (req, res) => {
   }
 };
 
-// Xóa album
 exports.deleteAlbum = async (req, res) => {
   try {
     await Album.findByIdAndDelete(req.params.id);
     res.status(204).end();
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getAlbumsByWeather = async (req, res) => {
+  try {
+    const weather = req.query.weather;
+    if (!weather) {
+      return res.status(400).json({ error: 'Missing weather query parameter' });
+    }
+
+    const albums = await Album.find({ weatherCondition: weather.toLowerCase() }).populate('artists');
+    res.json(albums);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

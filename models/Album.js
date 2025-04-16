@@ -23,8 +23,8 @@ const albumSchema = new mongoose.Schema({
   genres: [String],
   label: String,
   popularity: Number,
+  weatherCondition: String,
 
-  // ⚠️ Tham chiếu đến artist collection
   artists: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Artist'
