@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const weatherSchema = new mongoose.Schema({
   location: String,
@@ -11,10 +11,14 @@ const weatherSchema = new mongoose.Schema({
   humidity: Number,
   windSpeed: Number,
   feelsLike: Number,
+  coordinates: {
+    lat: Number,
+    lon: Number
+  },
   lastUpdated: {
     type: Date,
     default: Date.now
   }
-});
+})
 
-module.exports = mongoose.model('Weather', weatherSchema);
+module.exports = mongoose.model('Weather', weatherSchema)

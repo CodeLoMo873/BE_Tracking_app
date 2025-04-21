@@ -1,11 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const detailedWeatherController = require('../controllers/detailedWeatherController');
+const express = require('express')
+const router = express.Router()
+const detailedWeatherController = require('../controllers/detailedWeatherController')
 
-// Get detailed weather data
-router.get('/', detailedWeatherController.getBadWeather);
+// Get current detailed weather data
+router.get('/', detailedWeatherController.getBadWeather)
 
 // Force update detailed weather data
-router.post('/update', detailedWeatherController.updateDetailedWeatherData);
+router.post('/update', detailedWeatherController.updateDetailedWeatherData)
 
-module.exports = router;
+module.exports = router
