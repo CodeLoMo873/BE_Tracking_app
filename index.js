@@ -6,6 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const User = require('./models/User');
 const songRoutes = require('./routes/songRoutes');
+const userRoutes = require('./routes/userRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
 const badWeatherRoutes = require('./routes/badWeatherRoutes');
 const sunMoonRoutes = require('./routes/sunMoonRoutes');
@@ -24,6 +25,7 @@ app.use('/api/playlists', require('./routes/playlistRoutes'));
 app.use('/api/weather', weatherRoutes);
 app.use('/api/bad-weather', badWeatherRoutes);
 app.use('/api/sun-moon', sunMoonRoutes);
+app.use('/api/user', userRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
