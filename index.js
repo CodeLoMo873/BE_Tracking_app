@@ -9,30 +9,27 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 
 // Middleware to parse JSON bodies
-app.use(express.json())
+app.use(express.json()) // This is duplicated below - we'll fix that
 
 const PORT = process.env.PORT || 3000
 const User = require('./models/User')
-const songRoutes = require('./routes/songRoutes')
 const userRoutes = require('./routes/userRoutes')
-const weatherRoutes = require('./routes/weatherRoutes')
-const badWeatherRoutes = require('./routes/badWeatherRoutes')
-const sunMoonRoutes = require('./routes/sunMoonRoutes')
-const weatherScheduler = require('./services/weatherScheduler')
-const badWeatherScheduler = require('./services/badWeatherScheduler')
-const sunMoonScheduler = require('./services/sunMoonScheduler')
 
-// Middleware
-app.use(express.json())
+// Check if these files exist before requiring them
+try {
+  const goalRoutes = require('./routes/goalRoutes')
+  const goalTypeRoutes = require('./routes/goalTypeRoutes')
+  const goalTaskRoutes = require('./routes/goalTaskRoutes')
+  
+  // Register routes only if they exist
+  app.use('/api/goals', goalRoutes)
+  app.use('/api/goal-types', goalTypeRoutes)
+  app.use('/api/tasks', goalTaskRoutes)
+} catch (error) {
+  console.error('Error loading routes:', error.message)
+}
 
-app.use('/api/songs', songRoutes)
-app.use('/api/artists', require('./routes/artistRoutes'))
-app.use('/api/albums', require('./routes/albumRoutes'))
-app.use('/api/tracks', require('./routes/trackRoutes'))
-app.use('/api/playlists', require('./routes/playlistRoutes'))
-app.use('/api/weather', weatherRoutes)
-app.use('/api/bad-weather', badWeatherRoutes)
-app.use('/api/sun-moon', sunMoonRoutes)
+// Only keeping the user routes
 app.use('/api/user', userRoutes)
 
 // Connect to MongoDB
@@ -43,11 +40,6 @@ mongoose
   })
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch((err) => console.error('❌ MongoDB connection error:', err))
-
-// Initialize the weather scheduler when the app starts
-weatherScheduler.initWeatherScheduler()
-badWeatherScheduler.initBadWeatherScheduler()
-sunMoonScheduler.initSunMoonScheduler()
 
 // Routes
 app.get('/', (req, res) => {
